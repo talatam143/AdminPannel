@@ -1,5 +1,6 @@
 import React from "react";
 import {Container, Typography,Button,Paper} from "@material-ui/core";
+import { useHistory } from "react-router";
 
 import useStyles from "./homestyles";
 import Twitter from "../../images/twitter.png";
@@ -9,6 +10,11 @@ import LinkedIn from "../../images/linkedin.png";
 
 function Home () {
     const classes=useStyles();
+    const history = useHistory();
+
+    const handleLogin = () => {
+        history.push("./login")
+    }
 
     return(
         <div>
@@ -17,8 +23,8 @@ function Home () {
                 <Typography variant="h3" className={classes.heading}>Admin Panel</Typography>
                 <Typography variant="caption" className={classes.caption}>Central Authentication and Maintenance of Users</Typography>
                 <div className={classes.buttondiv}>
-                <Button className={classes.button} variant="contained">Sign Up</Button>
-                <Button className={classes.button} variant="contained">Sign IN</Button>
+                <Button className={classes.button} onClick={handleLogin} variant="contained">Sign Up</Button>
+                <Button className={classes.button} onClick={handleLogin} variant="contained">Sign IN</Button>
                 </div>
             </Container>
             </Paper>
