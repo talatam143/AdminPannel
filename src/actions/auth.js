@@ -64,7 +64,7 @@ export const mobilesignin = (numberData,history) =>  async(dispatch) => {
     try{
         const {data} = await api.mobilesignIn(numberData);
         dispatch ({type: AUTH, data});
-        history.push("/adminpannel");
+        history.push("/");
     } catch(error){
         dispatch({type : START_LOADING});
         console.log(error);
