@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useState} from "react";
 import {Container, Typography,Button,Paper} from "@material-ui/core";
 import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 
 import useStyles from "./homestyles";
 import Twitter from "../../images/twitter.png";
@@ -9,13 +10,21 @@ import Insta from "../../images/instagram.png";
 import LinkedIn from "../../images/linkedin.png";
 
 function Home () {
+    const dispatch = useDispatch();
     const classes=useStyles();
     const history = useHistory();
+    const [user,setUser] = useState(localStorage.getItem('profile'));
 
     const handleLogin = () => {
-        history.push("./login")
+        history.push("/login");
     }
 
+    const handleLogout = () => {
+        dispatch({type: "LOGOUT"});
+        history.push("/");
+        setUser(null);
+    }
+    
     return(
         <div>
             <Paper elevation={5} className={classes.paper}>
@@ -23,8 +32,17 @@ function Home () {
                 <Typography variant="h3" className={classes.heading}>Admin Panel</Typography>
                 <Typography variant="caption" className={classes.caption}>Central Authentication and Maintenance of Users</Typography>
                 <div className={classes.buttondiv}>
+                    {user ? 
+                    <>
+                    <Typography variant="caption" className={classes.caption}>Welcome</Typography>
+                    <Button className={classes.button} onClick={handleLogout} variant="contained">Logout</Button>
+                    </>
+                    :
+                    <>
                 <Button className={classes.button} onClick={handleLogin} variant="contained">Sign Up</Button>
                 <Button className={classes.button} onClick={handleLogin} variant="contained">Sign IN</Button>
+                </>
+                    }
                 </div>
             </Container>
             </Paper>

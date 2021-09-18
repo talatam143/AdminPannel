@@ -4,7 +4,19 @@ export default makeStyles((theme) => ({
     mainpaper:{
         backgroundColor:"#EABF9F",
     },
+    headingpaper:{
+        backgroundColor:"#1E212D",
+        color:"#B68973",
+        marginBottom:"5px"
+    },
     heading:{
+        fontWeight:"600",
+    },
+    verifyinfo:{
+        fontWeight:"600",
+        padding:"20px 10px"
+    },
+    headingtwo:{
         fontWeight:"600",
         fontSize:"2.2rem",
         paddingTop:"5px"

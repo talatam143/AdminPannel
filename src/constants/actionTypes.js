@@ -1,0 +1,10 @@
+export const AUTH = 'AUTH';
+export const LOGOUT = "LOGOUT";
+export const ERRORMESSAGE = "ERRORMESSAGE";
+export const SIGNUPMESSAGE = "SIGNUPMESSAGE";
+export const ACTIVATEMESSAGE = "ACTIVATEMESSAGE";
+export const MOBILEMESSAGE = "MOBILEMESSAGE";
+
+export const START_LOADING = "START_LOADING";
+export const END_LOADING = "END_LOADING";
+
