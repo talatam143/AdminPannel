@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({baseURL: "http://localhost:5000/user"});
+const API = axios.create({baseURL: "http://13.234.110.128:5000/user"});
 
 export const signIn = (formData) => API.post("/signin", formData);
 
