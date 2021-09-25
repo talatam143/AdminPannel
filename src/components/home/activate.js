@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-import {Container,Paper,Button,Typography} from "@material-ui/core"; 
+import {Container,Paper,Button,Typography,CircularProgress} from "@material-ui/core"; 
 import { activate } from "../../actions/auth";
 import useStyles from "./loginstyles";
 import { useHistory } from "react-router";
@@ -66,7 +66,11 @@ const Activate = ({match}) => {
                 </Paper>
                 <Paper className={classes.mainpaper} elevation={10}>
                 <Typography variant="h5" className={classes.verifyinfo} align="center">Please click on verify to activate your account</Typography>
+                {userstate.isLoading ?
+                <Button type="submit" variant="contained" className={classes.button}><CircularProgress size="28px"/> </Button>
+                :
                 <Button variant="contained" onClick={handleActivate} className={classes.button}>Activate</Button>
+                }
                 </Paper>
             </Container>
         </div>

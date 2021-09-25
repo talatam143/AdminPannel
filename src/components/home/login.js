@@ -3,8 +3,10 @@ import { useDispatch,useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { IconButton,Container, Typography,Paper,Button,TextField,Link,CircularProgress } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-import {Container, Typography,Paper,Button,TextField,Link} from "@material-ui/core";
 import useStyles from "./loginstyles";
 import {signin,signup} from "../../actions/auth";
 import MobileLogin from "./mobileLogin";
@@ -23,6 +25,7 @@ function Login() {
     const [islogin, setLoginstate] = useState(true);
     const [mobilelogin,setMobileLogin] = useState(true);
     const [formData, setformData] = useState(initialState);
+    const [showpassword, setShowpassword] = useState(false);
     
 
     const userstate = useSelector((state) => state.userState);
@@ -38,6 +41,7 @@ function Login() {
         } else{
             dispatch(signup(formData,history));
         }
+        dispatch({type: "DEFAULTMESSAGE"});
     }
     
     const handleLogin = () => {
@@ -56,8 +60,16 @@ function Login() {
         }
     }
     const homeRoute = () => {
+        dispatch({type: "DEFAULTMESSAGE"});
         history.push("/");
+    }
 
+    const clickShow = () => {
+        if(showpassword){
+            setShowpassword(false);
+        } else {
+            setShowpassword(true);
+        }
     }
 
     return(
@@ -110,19 +122,31 @@ function Login() {
                         {islogin ? 
                         <>
                         <TextField className={classes.loginfield} onChange={handleChange} label="Email" name="email" type="email"  variant="outlined" required  />
-                        <TextField className={classes.loginfield} onChange={handleChange} label="Password" name="password" type="password"  variant="outlined" required  />
+                        <TextField className={classes.loginfield} onChange={handleChange} label="Password" name="password" type={showpassword ? "text" : "password"}  variant="outlined" required  
+                        InputProps={{endAdornment: <IconButton onClick={clickShow}>
+                            {showpassword ? <Visibility /> :  <VisibilityOff />}
+                        </IconButton> }}
+                        />
                         </> 
                         : 
                         <>
                         <TextField className={classes.loginfield} onChange={handleChange} label="Name" name="name" type="text"  variant="outlined" required  />
                         <TextField className={classes.loginfield} onChange={handleChange} label="Email" name="email" type="email"  variant="outlined" required  />
                         <TextField className={classes.loginfield} onChange={handleChange} label="Username" name="username" type="text"  variant="outlined" required  />
-                        <TextField className={classes.loginfield} onChange={handleChange} label="Password" name="password" type="password"  variant="outlined" required  />
-                        <TextField className={classes.loginfield} onChange={handleChange} label="Confirm Password" name="confirmPassword" type="password" variant="outlined" required />
+                        <TextField className={classes.loginfield} onChange={handleChange} label="Password" name="password" type={showpassword ? "text" : "password"}  variant="outlined" required
+                        InputProps={{endAdornment: <IconButton onClick={clickShow}>
+                        {showpassword ? <Visibility /> :  <VisibilityOff />}
+                        </IconButton> }}
+                        />
+                        <TextField className={classes.loginfield} onChange={handleChange} label="Confirm Password" name="confirmPassword" type="password" variant="outlined" required   />
                         </>
                         }
                     </div>
-                    <Button type="submit" variant="contained" className={classes.button}>{islogin ? "Login" : "Sign up"}</Button>
+                    {userstate.isLoading ?
+                    <Button type="submit" variant="contained" className={classes.button}><CircularProgress size="28px"/> </Button>
+                    :
+                    <Button type="submit" variant="contained" className={classes.button}>{ islogin ?  "Sign In": "Sign up"}</Button>
+                    }
                     </form>
                     </>
                     }

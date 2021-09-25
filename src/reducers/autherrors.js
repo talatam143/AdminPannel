@@ -1,9 +1,7 @@
 import * as actionType from "../constants/actionTypes";
 
-
-
 const userstateReducer = ( userState = 
-                  {isLoading : true ,
+                  {isLoading : false ,
                   signupsuccess: false,
                   failurestatus: false, 
                   signupmessage: " ", 
@@ -14,6 +12,14 @@ const userstateReducer = ( userState =
                   mobilemessage:" ",
                 }, action) => {
   switch (action.type) {
+    case actionType.DEFAULTMESSAGE:
+      return{
+        ...userState,
+        mobilestatus:false,
+        failurestatus:false,
+        activatestatus:false,
+        signupsuccess:false,
+      };
     case actionType.START_LOADING:
       return {...userState, isLoading : true};
     case actionType.END_LOADING:

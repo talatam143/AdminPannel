@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 
-import {Typography,Paper,Button,TextField} from "@material-ui/core";
+import {Typography,Button,TextField,CircularProgress} from "@material-ui/core";
 import useStyles from "./loginstyles";
 import {mobilesignup,mobilesignin} from "../../actions/auth";
 
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 const initialData = { number : 0, otp: 0};
 
@@ -35,8 +29,9 @@ function Mobilelogin() {
             setotpstate(false);
         } else {
             dispatch(mobilesignup(numberData,history));
-            setotpstate(true);
+                    setotpstate(true);
         }
+        dispatch({type: "DEFAULTMESSAGE"});
     }
 
      return(
@@ -53,7 +48,11 @@ function Mobilelogin() {
                     </>
                     }
                     </div>
-                    <Button type="submit" variant="contained" className={classes.button}>{!otpstate ? "GET OTP" : "LOGIN"}</Button>
+                    {userstate.isLoading ?
+                    <Button type="submit" variant="contained" className={classes.button}><CircularProgress size="28px"/> </Button>
+                    :
+                    <Button type="submit" variant="contained" className={classes.button}>{userstate.mobilestatus && otpstate ? "LOGIN" : "GET OTP"}</Button>
+                    }
                     </form>
          </div>
      )

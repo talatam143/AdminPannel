@@ -4,8 +4,10 @@ import * as api from "../api/index";
 
 export const signin = (formData,history) => async(dispatch) =>{
     try{
+        dispatch({type : START_LOADING});
         const {data} = await api.signIn(formData);
         dispatch({type: AUTH, data});
+        dispatch({type: END_LOADING});
         history.push("/");
     }
     catch(error){
@@ -62,8 +64,10 @@ export const mobilesignup = (numberData) =>  async(dispatch) => {
 
 export const mobilesignin = (numberData,history) =>  async(dispatch) => {
     try{
+        dispatch({type : START_LOADING});
         const {data} = await api.mobilesignIn(numberData);
         dispatch ({type: AUTH, data});
+        dispatch({type: END_LOADING});
         history.push("/");
     } catch(error){
         dispatch({type : START_LOADING});
